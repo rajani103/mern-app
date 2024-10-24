@@ -31,3 +31,6 @@ steps:
 images:
   - 'us-central1-docker.pkg.dev/$PROJECT_ID/mern-repo/client'
   - 'us-central1-docker.pkg.dev/$PROJECT_ID/mern-repo/server'
+
+options:
+  logging: NONE
