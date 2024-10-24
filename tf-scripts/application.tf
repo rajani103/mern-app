@@ -25,7 +25,6 @@ resource "google_cloud_run_service" "mern_client" {
     percent         = 100
     latest_revision = true
   }
-  depends_on = [ google_artifact_registry_repository.mern_repo ]
 }
 
 # Deploy Backend to Cloud Run
