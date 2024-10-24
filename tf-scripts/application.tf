@@ -1,8 +1,3 @@
-provider "google" {
-  project = "your-gcp-project-id"
-  region  = "us-central1"
-}
-
 # Build Docker image and push to Artifact Registry (You'll need to run this manually or with Cloud Build)
 # docker build -t us-central1-docker.pkg.dev/your-gcp-project-id/mern-repo/client ./client
 # docker push us-central1-docker.pkg.dev/your-gcp-project-id/mern-repo/client
