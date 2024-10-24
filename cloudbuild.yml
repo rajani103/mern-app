@@ -1,7 +1,7 @@
 steps:
   # Step 1: Build the frontend Docker image
   - name: 'gcr.io/cloud-builders/docker'
-    args: ['build', '-t', 'us-central1-docker.pkg.dev/$PROJECT_ID/mern-repo/client', '-f', 'client/Dockerfile', '.']
+    args: ['build', '-t', 'us-central1-docker.pkg.dev/$PROJECT_ID/mern-repo/client', '-f', 'Dockerfile', '.']
     dir: './client'
 
   # Step 2: Push the frontend Docker image to Artifact Registry
@@ -10,7 +10,7 @@ steps:
 
   # Step 3: Build the backend Docker image
   - name: 'gcr.io/cloud-builders/docker'
-    args: ['build', '-t', 'us-central1-docker.pkg.dev/$PROJECT_ID/mern-repo/server', '-f', 'server/Dockerfile', '.']
+    args: ['build', '-t', 'us-central1-docker.pkg.dev/$PROJECT_ID/mern-repo/server', '-f', 'Dockerfile', '.']
     dir: './server'
 
   # Step 4: Push the backend Docker image to Artifact Registry
