@@ -35,7 +35,6 @@ resource "google_compute_firewall" "mongodb_access" {
   allow {
     protocol = "tcp"
     ports    = ["27017"]
-    ranges  = ["0.0.0.0/0"] # Restrict access further if needed
   }
 
   target_tags = ["mongodb"]
