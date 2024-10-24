@@ -17,6 +17,10 @@ resource "google_cloud_run_service" "mern_client" {
             memory = "512Mi"
           }
         }
+        env {
+          name  = "PORT"
+          value = "80"
+        }
       }
     }
   }
@@ -46,7 +50,12 @@ resource "google_cloud_run_service" "mern_server" {
             memory = "512Mi"
           }
         }
+        env {
+          name  = "PORT"
+          value = "80"
+        }
       }
+
     }
   }
 
