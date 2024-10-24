@@ -9,7 +9,7 @@ COPY ./package*.json ./
 RUN npm install
 
 # Copy the rest of the app and build it
-COPY ./client/ ./
+COPY ./ ./
 RUN npm run build
 
 # Use nginx to serve the build

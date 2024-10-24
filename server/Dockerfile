@@ -9,7 +9,7 @@ COPY ./package*.json ./
 RUN npm install
 
 # Copy the rest of the server files
-COPY ./server/ ./
+COPY ./ ./
 
 # Expose the port the app will run on
 EXPOSE 5000
