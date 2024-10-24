@@ -3,14 +3,6 @@ provider "google" {
   region  = "us-central1"
 }
 
-# Artifact Registry for storing Docker images
-resource "google_artifact_registry_repository" "mern_repo" {
-  provider   = google
-  format     = "DOCKER"
-  location   = "us-central1"
-  repository_id = "mern-repo"
-}
-
 # Build Docker image and push to Artifact Registry (You'll need to run this manually or with Cloud Build)
 # docker build -t us-central1-docker.pkg.dev/your-gcp-project-id/mern-repo/client ./client
 # docker push us-central1-docker.pkg.dev/your-gcp-project-id/mern-repo/client
