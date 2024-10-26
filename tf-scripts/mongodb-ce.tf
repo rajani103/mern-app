@@ -1,5 +1,5 @@
 
-resource "google_compute_instance" "mongodb" {
+resource "google_compute_instance" "mongodbinstance" {
   name         = "mongodb-instance"
   machine_type = "e2-medium"
   zone         = "us-central1-a"
@@ -28,7 +28,7 @@ resource "google_compute_instance" "mongodb" {
 
 }
 
-resource "google_compute_firewall" "mongodb_access" {
+resource "google_compute_firewall" "mongodb_access_firewall" {
   name    = "mongodb-access"
   network = "default"
 
@@ -41,6 +41,6 @@ resource "google_compute_firewall" "mongodb_access" {
   source_ranges = ["0.0.0.0/0"] # Restrict access further if needed
 }
 
-output "mongodb_ip" {
-  value = google_compute_instance.mongodb.network_interface[0].access_config[0].nat_ip
+output "mongodb_ip_output" {
+  value = google_compute_instance.mongodbinstance.network_interface[0].access_config[0].nat_ip
 }

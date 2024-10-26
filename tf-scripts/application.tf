@@ -3,7 +3,7 @@
 # docker push us-central1-docker.pkg.dev/your-gcp-project-id/mern-repo/client
 
 # Deploy Frontend to Cloud Run
-resource "google_cloud_run_service" "mern_client" {
+resource "google_cloud_run_service" "mern_client_app" {
   name     = "mern-client"
   location = "us-central1"
 
@@ -32,7 +32,7 @@ resource "google_cloud_run_service" "mern_client" {
 }
 
 # Deploy Backend to Cloud Run
-resource "google_cloud_run_service" "mern_server" {
+resource "google_cloud_run_service" "mern_server_app" {
   name     = "mern-server"
   location = "us-central1"
 
@@ -67,9 +67,9 @@ resource "google_cloud_run_service" "mern_server" {
 
 # Output Cloud Run URLs
 output "client_url" {
-  value = google_cloud_run_service.mern_client.status[0].url
+  value = google_cloud_run_service.mern_client_app.status[0].url
 }
 
 output "server_url" {
-  value = google_cloud_run_service.mern_server.status[0].url
+  value = google_cloud_run_service.mern_server_app.status[0].url
 }
