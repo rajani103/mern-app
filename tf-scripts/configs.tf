@@ -7,7 +7,7 @@ variable "project"{
 }
 terraform {
   backend "gcs" {
-    bucket = " terraform-state-backend12891y4o28r3hewi8892"
+    bucket = "terraform-state-backend12891y4o28r3hewi8892"
     prefix     = "terraform/state"              
   }
 }
