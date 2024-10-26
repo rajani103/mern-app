@@ -17,10 +17,6 @@ resource "google_cloud_run_service" "mern_client_app" {
             memory = "512Mi"
           }
         }
-        env {
-          name  = "PORT"
-          value = "80"
-        }
       }
     }
   }
@@ -49,10 +45,6 @@ resource "google_cloud_run_service" "mern_server_app" {
             cpu    = "1000m"
             memory = "512Mi"
           }
-        }
-        env {
-          name  = "PORT"
-          value = "80"
         }
       }
 
