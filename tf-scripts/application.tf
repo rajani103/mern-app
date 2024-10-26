@@ -17,7 +17,12 @@ resource "google_cloud_run_service" "mern_client_app" {
             memory = "512Mi"
           }
         }
+        env {
+        name = "REACT_APP_YOUR_HOSTNAME"
+        value = google_cloud_run_service.mern_server_app.status[0].url
       }
+      }
+      
     }
   }
 
