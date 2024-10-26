@@ -43,7 +43,7 @@ resource "google_cloud_run_service" "mern_server_app" {
         image = "us-central1-docker.pkg.dev/${var.project}/mern-repo/server"
         env {
           name  = "ATLAS_URI"
-          value = "mongodb://${google_compute_instance.mongodbinstance.network_interface[0].access_config[0].nat_ip}:27017/mydatabase"
+          value = "mongodb://rajani:rajani103@${google_compute_instance.mongodbinstance.network_interface[0].access_config[0].nat_ip}:27017/mydatabase"
         }
         resources {
           limits = {
