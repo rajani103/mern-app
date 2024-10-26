@@ -23,7 +23,7 @@ steps:
     args:
       - '-c'
       - |
-        terraform init -reconfigure
+        terraform init
         terraform apply -auto-approve
     dir: './tf-scripts'
 
