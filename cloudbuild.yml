@@ -1,23 +1,4 @@
 steps:
-  # Step 1: Build the frontend Docker image
-  - name: 'gcr.io/cloud-builders/docker'
-    args: ['build', '-t', 'us-central1-docker.pkg.dev/$PROJECT_ID/mern-repo/client', '-f', 'Dockerfile', '.']
-    dir: './client'
-
-  # Step 2: Push the frontend Docker image to Artifact Registry
-  - name: 'gcr.io/cloud-builders/docker'
-    args: ['push', 'us-central1-docker.pkg.dev/$PROJECT_ID/mern-repo/client']
-
-  # Step 3: Build the backend Docker image
-  - name: 'gcr.io/cloud-builders/docker'
-    args: ['build', '-t', 'us-central1-docker.pkg.dev/$PROJECT_ID/mern-repo/server', '-f', 'Dockerfile', '.']
-    dir: './server'
-
-  # Step 4: Push the backend Docker image to Artifact Registry
-  - name: 'gcr.io/cloud-builders/docker'
-    args: ['push', 'us-central1-docker.pkg.dev/$PROJECT_ID/mern-repo/server']
-
-  # Step 5: Install Terraform and execute Terraform scripts
   - name: 'hashicorp/terraform:light'
     entrypoint: '/bin/sh'
     args:
@@ -27,11 +8,6 @@ steps:
         terraform init -reconfigure
         terraform apply -auto-approve
     dir: './tf-scripts'
-
-# Define the images that will be created
-images:
-  - 'us-central1-docker.pkg.dev/$PROJECT_ID/mern-repo/client'
-  - 'us-central1-docker.pkg.dev/$PROJECT_ID/mern-repo/server'
 
 options:
   logging: CLOUD_LOGGING_ONLY

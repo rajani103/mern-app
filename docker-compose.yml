@@ -2,16 +2,41 @@ version: '3'
 services:
   client:
     build:
-      context: .
-      dockerfile: ./Dockerfile-client
+      context: ./client
+      dockerfile: Dockerfile
+      args:
+        - REACT_APP_YOUR_HOSTNAME=http://server:8080
     ports:
-      - "3000:80"
+      - "3001:80"
     depends_on:
       - server
+    environment:
+      - REACT_APP_YOUR_HOSTNAME=http://server:8080  # Backend URL for frontend
+    networks:
+      - app-network
 
   server:
     build:
-      context: .
-      dockerfile: ./Dockerfile-server
+      context: ./server
+      dockerfile: Dockerfile
     ports:
-      - "5000:5000"
+      - "3002:8080"
+    environment:
+      - ATLAS_URI=mongodb://mongo:27017/mydatabase  # MongoDB URL for backend
+      - PORT=8080
+    depends_on:
+      - mongo  # Ensure mongo starts before the backend service
+    networks:
+      - app-network
+  
+  mongo:
+    image: mongo:latest
+    container_name: mongodb
+    ports:
+      - "27017:27017"  # Expose MongoDB on port 27017
+    networks:
+      - app-network
+  
+networks:
+  app-network:
+    driver: bridge

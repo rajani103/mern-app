@@ -10,7 +10,7 @@ resource "google_cloud_run_service" "mern_client_app" {
   template {
     spec {
       containers {
-        image = "us-central1-docker.pkg.dev/${var.project}/mern-repo/client"
+        image = docker_image.client_image.name
         resources {
           limits = {
             cpu    = "1000m"
@@ -30,6 +30,7 @@ resource "google_cloud_run_service" "mern_client_app" {
     percent         = 100
     latest_revision = true
   }
+  depends_on = [ docker_registry_image.client_image_registry ]
 }
 
 # Deploy Backend to Cloud Run
@@ -40,7 +41,7 @@ resource "google_cloud_run_service" "mern_server_app" {
   template {
     spec {
       containers {
-        image = "us-central1-docker.pkg.dev/${var.project}/mern-repo/server"
+        image = docker_image.server_image.name
         env {
           name  = "ATLAS_URI"
           value = "mongodb+srv://rajnee:rajani103@cluster0.py2ov.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
@@ -60,8 +61,20 @@ resource "google_cloud_run_service" "mern_server_app" {
     percent         = 100
     latest_revision = true
   }
+  depends_on = [ docker_registry_image.server_image_registry ]
 }
-
+resource "google_cloud_run_service_iam_member" "backend_iam_public" {
+  service    = google_cloud_run_service.mern_server_app.name
+  location   = google_cloud_run_service.mern_server_app.location
+  role       = "roles/run.invoker"
+  member     = "allUsers"
+}
+resource "google_cloud_run_service_iam_member" "frontend_iam_public" {
+  service    = google_cloud_run_service.mern_client_app.name
+  location   = google_cloud_run_service.mern_client_app.location
+  role       = "roles/run.invoker"
+  member     = "allUsers"
+}
 # Output Cloud Run URLs
 output "client_url" {
   value = google_cloud_run_service.mern_client_app.status[0].url
