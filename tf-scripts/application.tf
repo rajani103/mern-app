@@ -10,7 +10,7 @@ resource "google_cloud_run_service" "mern_client_app" {
   template {
     spec {
       containers {
-        image = docker_image.client_image.name
+        image = "us-central1-docker.pkg.dev/${var.project}/mern-repo/client:latest"
         resources {
           limits = {
             cpu    = "1000m"
@@ -30,7 +30,6 @@ resource "google_cloud_run_service" "mern_client_app" {
     percent         = 100
     latest_revision = true
   }
-  depends_on = [ docker_registry_image.client_image_registry ]
 }
 
 # Deploy Backend to Cloud Run
@@ -41,7 +40,7 @@ resource "google_cloud_run_service" "mern_server_app" {
   template {
     spec {
       containers {
-        image = docker_image.server_image.name
+        image = "us-central1-docker.pkg.dev/${var.project}/mern-repo/server:latest"
         env {
           name  = "ATLAS_URI"
           value = "mongodb+srv://rajnee:rajani103@cluster0.py2ov.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
@@ -61,7 +60,6 @@ resource "google_cloud_run_service" "mern_server_app" {
     percent         = 100
     latest_revision = true
   }
-  depends_on = [ docker_registry_image.server_image_registry ]
 }
 resource "google_cloud_run_service_iam_member" "backend_iam_public" {
   service    = google_cloud_run_service.mern_server_app.name

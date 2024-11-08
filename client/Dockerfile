@@ -1,35 +1,3 @@
-# # Use an official node image as the base
-# FROM node:16 as build
-
-# # Set the working directory
-# WORKDIR /app
-
-# # Copy package.json and install dependencies
-# COPY ./package*.json ./
-# RUN npm install
-
-# # Copy the rest of the app and build it
-# COPY ./ ./
-
-# ARG REACT_APP_YOUR_HOSTNAME
-# ENV REACT_APP_YOUR_HOSTNAME=$REACT_APP_YOUR_HOSTNAME
-
-# RUN npm run build
-
-
-# FROM nginx:alpine
-
-# # Copy the built React app to Nginx's web server directory
-# COPY --from=build /app/build /usr/share/nginx/html
-# COPY nginx.conf /etc/nginx/default.conf
-# # Expose port 80 for the Nginx server
-# EXPOSE 8080
-
-
-# # Start Nginx when the container runs
-# CMD ["nginx", "-g", "daemon off;"]
-#---
-# # Use an official Node runtime as a parent image
 FROM node:16
 
 # Set the working directory to /app
